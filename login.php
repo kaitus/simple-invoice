@@ -22,68 +22,116 @@ $login = new Login();
 if ($login->isUserLoggedIn() == true) {
     // the user is logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are logged in" view.
-   header("location: facturas.php");
+   header("location: dashboard.php");
 
 } else {
     // the user is not logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are not logged in" view.
     ?>
-	<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Simple Invoice | Login</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <!-- CSS  -->
-   <link href="css/login.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <?php include("head.php");?>
 </head>
-<body>
- <div class="container">
-        <div class="card card-container">
-            <img id="profile-img" class="profile-img-card" src="img/avatar_2x.png" />
-            <p id="profile-name" class="profile-name-card"></p>
-            <form method="post" accept-charset="utf-8" action="login.php" name="loginform" autocomplete="off" role="form" class="form-signin">
-			<?php
-				// show potential errors / feedback (from login object)
-				if (isset($login)) {
-					if ($login->errors) {
-						?>
-						<div class="alert alert-danger alert-dismissible" role="alert">
-						    <strong>Error!</strong> 
-						
-						<?php 
-						foreach ($login->errors as $error) {
-							echo $error;
-						}
-						?>
-						</div>
-						<?php
-					}
-					if ($login->messages) {
-						?>
-						<div class="alert alert-success alert-dismissible" role="alert">
-						    <strong>Aviso!</strong>
-						<?php
-						foreach ($login->messages as $message) {
-							echo $message;
-						}
-						?>
-						</div> 
-						<?php 
-					}
-				}
-				?>
-                <span id="reauth-email" class="reauth-email"></span>
-                <input class="form-control" placeholder="Usuario" name="user_name" type="text" value="" autofocus="" required>
-                <input class="form-control" placeholder="Contraseña" name="user_password" type="password" value="" autocomplete="off" required>
-                <button type="submit" class="btn btn-lg btn-success btn-block btn-signin" name="login" id="submit">Iniciar Sesión</button>
-            </form><!-- /form -->
-            
-        </div><!-- /card-container -->
-    </div><!-- /container -->
-  </body>
+
+<body class="bg-gradient-primary">
+
+  <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+              <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                 <!-- Nested Row within Card Body 
+                <img id="profile-img" class="profile-img-card" src="https://scontent-bog1-1.xx.fbcdn.net/v/t1.6435-9/152373363_100999885382534_4115499192360162034_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeF9o602aWtFqMERf0cB77exDpCrWX6uU6sOkKtZfq5Tq2sQ_Svhk3sg6TRNon0TYH6VsAGHwK9VBWmCiYOjqyB8&_nc_ohc=d5vlGPoXdaoAX9VNEhV&_nc_ht=scontent-bog1-1.xx&oh=eef6c352b5c28dfc0409f75570a3c321&oe=60B207FA" width="460" />
+                -->
+              </div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                </div>
+                <form method="post" accept-charset="utf-8" action="login.php" name="loginform" autocomplete="off" role="form" class="form-signin">
+                  <?php
+                    // show potential errors / feedback (from login object)
+                    if (isset($login)) {
+                      if ($login->errors) {
+                        ?>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> 
+                        
+                        <?php 
+                        foreach ($login->errors as $error) {
+                          echo $error;
+                        }
+                        ?>
+                        </div>
+                        <?php
+                      }
+                      if ($login->messages) {
+                        ?>
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Aviso!</strong>
+                        <?php
+                        foreach ($login->messages as $message) {
+                          echo $message;
+                        }
+                        ?>
+                        </div> 
+                        <?php 
+                      }
+                    }
+                  ?>
+                  <div class="form-group">
+                      <input type="text" class="form-control form-control-user"
+                          id="user_name" name="user_name" aria-describedby="user_name"
+                          placeholder="Usuario" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="password" class="form-control form-control-user"
+                          id="user_password" name="user_password" placeholder="Password">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-user btn-block" name="login" id="submit">Iniciar Sesión</button>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                </div>
+                <div class="text-center">
+                    <a class="small" href="register.html">Create an Account!</a>
+                </div>
+                <?php
+                  include("footer.php");
+                ?>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+	<!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+</body>
 </html>
 
 	<?php
